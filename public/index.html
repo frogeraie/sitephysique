@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<title> Site physique </title>
+    <script type="text/javascript">
+		function setColor(slider, textbox) {
+			textbox.value = slider.value;
+			var request = new XMLHttpRequest();
+				// GET /output/color/level, and make an asynchronous request:
+				request.open( "GET", '/output/' + textbox.id + "/" + slider.value, true );
+				// close the request:
+				request.send( null );
+		}
+	 </script>
+	 
+    <style>
+#videoCanvas {
+			/* Always stretch the canvas to 640x480, regardless of its
+			internal size. */
+			width: 640px;
+			height: 480px;
+			position: absolute; 
+			top: 80px; 
+			left:50px
+		}
+		body {font-family: Arial, 
+Helvetica Neue, Verdana, Geneva, sans-serif;
+	}
+	h1{
+	position: absolute; 
+	top:0px; 
+	left:230px}
+	
+	#redSlider {
+	background: #cc0000;
+	position: absolute; 
+	top: 600px; 
+	left:100px;
+	}
+	#greenSlider {
+	background: #00cc00; 
+	position: absolute; 
+	top: 600px; 
+	left:360px}
+    	#r{color:#cc0000;
+	position: absolute; 
+	top: 570px; 
+	left:170px;}    
+	#blueSlider {
+	background: #0000cc; 
+	position: absolute; 
+	top: 650px; 
+	left:225px}
+    	#b{color:#0000cc;
+	position: absolute; 
+	top: 620px; 
+	left:290px;} 	
+    	#g{color:#00cc00;
+	position: absolute; 
+	top: 570px; 
+	left:410px;}	
+	#gauche  {
+	position: absolute; 
+	top: 620px; 
+	left:150px}
+	#droite  {
+	position: absolute; 
+	top: 620px; 
+	left:430px}
+	#avance  {
+	position: absolute; 
+	top: 670px; 
+	left:230px}
+	#recule  {
+	position: absolute; 
+	top: 670px; 
+	left:370px}
+    	
+    </style>
+	 </head>
+	<body>
+<h1>
+	Diriger la cam&eacute;ra
+	</h1>
+<div id="gauche">
+		Roue gauche
+		</div>
+		</p>
+		<p>
+		<div id="droite">
+		Roue droite
+		</div>
+<div id="avance">
+		Avance
+		</div>
+<div id="recule">
+		Recule
+		</div>
+		</p>
+<canvas id="videoCanvas" width="640" height="480">
+		<p>
+			Please use a browser that supports the Canvas Element, like
+			<a href="http://www.google.com/chrome">Chrome</a>,
+			<a href="http://www.mozilla.com/firefox/">Firefox</a>,
+			<a href="http://www.apple.com/safari/">Safari</a> or Internet Explorer 10
+		</p>
+	</canvas>
+		
+	<!-- Slider -->
+	
+	<input type="range" id="redSlider" min="0" max="100"  onchange="setColor(this, r);">
+	<input type="text" id="r" size=2><br>
+	
+	<input type="range" id="greenSlider" min="0" max="100" onchange="setColor(this, g);">
+	<input type="text" id="g" size=2><br>
+	
+	<input type="range" id="blueSlider" min="0" max="100" onchange="setColor(this, b);">
+	<input type="text" id="b" size=2><br>
+
+	<script type="text/javascript" src="jsmpg.js"></script>
+	<script type="text/javascript">
+		// Setup the WebSocket connection and start the player
+		var client = new WebSocket( 'ws://192.168.1.83:8084/' );
+
+		var canvas = document.getElementById('videoCanvas');
+		var player = new jsmpeg(client, {canvas:canvas});
+	</script>
+	</body>
+</html>
